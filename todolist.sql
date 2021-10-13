@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS todolist;
 -- simply remove that part and use only "IDENTIFIED BY".
 CREATE USER IF NOT EXISTS 'neib'@'localhost' IDENTIFIED WITH mysql_native_password BY 'neib';
 
-GRANT ALL PRIVILEGES ON todolist.* TO 'todolist'@'localhost' ;
+GRANT ALL PRIVILEGES ON todolist.* TO 'neib'@'localhost' ;
 
 USE todolist;
 
