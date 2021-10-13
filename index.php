@@ -5,14 +5,15 @@
 // "http://localhost:8888/comem-archidep-php-todo-exercise/", then BASE_URL
 // should be "/comem-archidep-php-todo-exercise/". If you are accessing the
 // application at "http://localhost:8888", then BASE_URL should be "/".
-define('BASE_URL', '/');
+define('BASE_URL', '/comem-archidep-php-todo-exercise/');
 
 // Database connection parameters.
-define('DB_USER', 'todolist');
-define('DB_PASS', 'chAngeMeN0w!');
+define('DB_USER', 'neib');
+define('DB_PASS', 'neib');
 define('DB_NAME', 'todolist');
-define('DB_HOST', '127.0.0.1');
-define('DB_PORT', '3306');
+define('DB_HOST', 'localhost');
+define('DB_PORT', '8889');
+
 
 $db = new PDO('mysql:host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_NAME, DB_USER, DB_PASS);
 $items = array();
@@ -44,7 +45,11 @@ if (isset($_POST['action'])) {
 
       $id = $_POST['id'];
       if(is_numeric($id)) {
-        $updateQuery = ''; // IMPLEMENT ME
+        $currentState = $db->query('SELECT done from todo WHERE id = '. $id);
+        $currentState->execute();
+        $currentState = $currentState->fetch(PDO::FETCH_ASSOC); 
+        $newState = $currentState['done'] == 1 ? 0:1;
+        $updateQuery = 'UPDATE todo SET done = '. $newState .' WHERE id = '. $id;  ; 
         if(!$db->query($updateQuery)) {
           die(print_r($db->errorInfo(), true));
         }
@@ -60,7 +65,7 @@ if (isset($_POST['action'])) {
 
       $id = $_POST['id'];
       if(is_numeric($id)) {
-        $deleteQuery = ''; // IMPLEMENT ME
+        $deleteQuery = 'delete from todo where id like '. $id;
         if(!$db->query($deleteQuery)) {
           die(print_r($db->errorInfo(), true));
         }
@@ -77,7 +82,7 @@ if (isset($_POST['action'])) {
 /**
  * Select all tasks from the database.
  */
-$selectQuery = ''; // IMPLEMENT ME
+$selectQuery = 'select * from todo ORDER BY created_at DESC'; // IMPLEMENT ME
 $items = $db->query($selectQuery);
 ?>
 
