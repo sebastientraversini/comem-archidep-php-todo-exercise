@@ -1,5 +1,5 @@
 <?php
-
+//Final
 // The base path under which the application is exposed. For example, if you are
 // accessing the application at
 // "http://localhost:8888/comem-archidep-php-todo-exercise/", then BASE_URL
@@ -29,7 +29,7 @@ if (isset($_POST['action'])) {
       $title = $_POST['title'];
       if ($title && $title !== '') {
         $insertQuery = 'INSERT INTO todo VALUES(NULL, \''.$title.'\', FALSE, CURRENT_TIMESTAMP)';
-        if (!$db->query($insertQuery)) {
+        if (!$db->query($insertQuery)) { 
           die(print_r($db->errorInfo(), true));
         }
       }
